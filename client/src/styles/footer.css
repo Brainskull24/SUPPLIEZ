@@ -1,0 +1,114 @@
+.footer{
+    width: 100%;
+    border: 2px solid black;
+  }
+.footer-up{
+    height: 100px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .f-section2{
+    display: flex;
+    flex-direction: column;
+    flex-basis: 40%;
+    color: black;
+  }
+  
+  .f-section3{
+    flex-basis: 30%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .f-section3 h2{
+    color: black;
+    margin: 10px;
+    font-size: larger;
+    text-align: center;
+  }
+  .f-follow{
+    margin-top: 20px;
+    height: 40%;
+  }
+  
+  .f-supp{
+    height: 40%;
+  }
+  
+  .fd-buttons1{
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .fd-buttons1 a{
+    text-decoration: none;
+    color: black;
+    margin: 20px;
+    font-weight: bolder;
+    
+  }
+  .fd-buttons1 a:hover{
+    text-decoration: underline;
+  }
+  .footer-down{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .footer-down h1{
+    /* height: 30px; */
+    font-size: larger;
+    width: 75%;
+    margin-left: 10px;
+    text-align: left;
+  }
+  .fd-buttons{
+    display: flex;
+    flex-direction: row;
+    width: 25%;
+  }
+  .fd-buttons a{
+    text-decoration: none;
+    color: black;
+    margin: 20px;
+    font-weight: bolder;
+    
+  }
+  .fd-buttons a:hover{
+    text-decoration: underline;
+  }
+  .f-icons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .f-icons ul{
+    display: flex;
+    flex-direction: row;
+  
+  }
+  
+  .f-icons ul li{
+    height: 25px;
+    width: 25px;
+    margin: 7px;
+  }
+  
+  .icons {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+  
+  ion-icon {
+    font-size: 22px;
+    color: red;
+  }
+  
+  ion-icon:hover {
+    color:black;
+  }
+  /* footer ends  */

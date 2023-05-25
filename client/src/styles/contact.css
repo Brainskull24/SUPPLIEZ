@@ -1,0 +1,15 @@
+.wrapperc{
+    width: 40%;
+    background: #fff;
+    border: 2px solid black;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    border-radius: 8px;
+    margin: auto;
+    padding: 1rem;
+    margin-top:20px;
+    align-items: center;
+    text-align: center;
+}
+.wrapperc form .form-label{
+    text-align: left;
+}
