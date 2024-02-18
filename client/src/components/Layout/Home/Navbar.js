@@ -1,15 +1,24 @@
-import React from 'react'
-import {NavLink,Link} from 'react-router-dom';
+import React from "react";
+import { NavLink, Link } from "react-router-dom";
 import { useAuth } from "../../../context/auth";
 import toast from "react-hot-toast";
-import SearchInput from '../../Forms/SearchInput';
+import SearchInput from "../../Forms/SearchInput";
 import useCategory from "../../hooks/useCategory";
 import { useCart } from "../../../context/cart";
 import { Badge } from "antd";
+import logo from "../../../imgs/logo.jpg";
+import "../../../styles/navbar.css";
+// import cartlogo from "../../../imgs/cart.png"
+// import { useState } from 'react';
 const Navbar = () => {
   const [auth, setAuth] = useAuth();
   const [cart] = useCart();
   const categories = useCategory();
+
+  // const handleToggle = () => {
+  //   setVisible((current) => !current);
+  // };
+
   const handleLogout = () => {
     setAuth({
       ...auth,
@@ -21,36 +30,46 @@ const Navbar = () => {
   };
   return (
     <>
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-  <div className="container-fluid">
-    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul className="navbar-nav m-auto ">
-        <li className="nav-item mx-2">
-          <Link className="nav-link active" aria-current="page" to="/">Home</Link>
-        </li>
-        <li className="nav-item mx-2">
-          <NavLink className="nav-link" to='/about'>About</NavLink>
-        </li>
-        <li className="nav-item mx-2">
-          <NavLink className="nav-link " to='/contact'>Contact</NavLink>
-        </li>
-        <SearchInput/>
-        <li className="nav-item dropdown">
+      <nav className="navbar navbar-expand-lg ">
+        <div className="container-fluid">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mx-4">
+              <li className="nav-item mx-3">
+                <Link className="nav-link">
+                  <img className="n-logo" src={logo}></img>
+                </Link>
+              </li>
+              <li className="nav-item mx-3">
+                <Link className="nav-link" aria-current="page" to="/">
+                  HOME
+                </Link>
+              </li>
+              <li className="nav-item mx-3">
+                <NavLink className="nav-link" to="/about">
+                  ABOUT
+                </NavLink>
+              </li>
+              <li className="nav-item mx-3">
+                <NavLink className="nav-link " to="/contact">
+                  CONTACT US
+                </NavLink>
+              </li>
+              <li className="nav-item dropdown mx-3">
                 <Link
                   className="nav-link dropdown-toggle"
                   to={"/categories"}
                   data-bs-toggle="dropdown"
                 >
-                  Categories
+                  CATEGORIES
                 </Link>
                 <ul className="dropdown-menu">
-                  <li>
+                  <li className="mx-3">
                     <Link className="dropdown-item" to={"/categories"}>
-                      All Categories
+                      ALL CATEGORIES
                     </Link>
                   </li>
                   {categories?.map((c) => (
-                    <li>
+                    <li className="mx-3">
                       <Link
                         className="dropdown-item"
                         to={`/category/${c.slug}`}
@@ -61,52 +80,66 @@ const Navbar = () => {
                   ))}
                 </ul>
               </li>
-        {!auth?.user ? (
+              {!auth?.user ? (
                 <>
-                  <li className="nav-item">
+                  <li className="nav-item mx-3">
                     <NavLink to="/register" className="nav-link">
-                      Register
+                      REGISTER
                     </NavLink>
                   </li>
-                  <li className="nav-item">
+                  <li className="nav-item mx-3">
                     <NavLink to="/login" className="nav-link">
-                      Login
+                      LOGIN
                     </NavLink>
                   </li>
                 </>
               ) : (
                 <>
-                  <li className="nav-item">
+                  <li className="nav-item mx-3">
                     <NavLink
-                          to={`/dashboard/${
-                            auth?.user?.role === 1 ? "admin" : "user"
-                          }`} className="nav-link">
-                      Dashboard
+                      to={`/dashboard/${
+                        auth?.user?.role === 1 ? "admin" : "user"
+                      }`}
+                      className="nav-link"
+                    >
+                      DASHBOARD
                     </NavLink>
                   </li>
-                  <li className="nav-item">
+                  <li className="nav-item mx-3">
                     <NavLink
-                          onClick={handleLogout}
-                          to="/login"
-                          className="nav-link">
-                      Logout
+                      onClick={handleLogout}
+                      to="/login"
+                      className="nav-link"
+                    >
+                      LOGOUT
                     </NavLink>
                   </li>
                 </>
               )}
-              <li className="nav-item">
-                <Badge count={cart?.length} showZero>
-                  <NavLink to="/cart" className="nav-link">
-                    Cart
-                  </NavLink>
-                </Badge>
+              <li className="nav-item mx-2">
+                <NavLink to="/profile" className="nav-link">
+                  <i class="fa-regular fa-user fa-xl"></i>
+                </NavLink>
               </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-</>
-  )
+              <li className="nav-item mx-2">
+                <NavLink to="/wishlist" className="nav-link">
+                  <i class="fa-regular fa-heart fa-xl"></i>
+                </NavLink>
+              </li>
+              <li className="nav-item mx-2">
+                <NavLink to="/cart" className="nav-link">
+                  <Badge count={cart?.length} showZero className="c-count">
+                    <i class="fa-solid fa-bag-shopping fa-xl"></i>
+                  </Badge>
+                </NavLink>
+              </li>
+              {/* <SearchInput/> */}
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
 };
 
 export default Navbar;

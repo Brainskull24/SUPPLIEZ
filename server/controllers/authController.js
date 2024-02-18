@@ -7,16 +7,13 @@ import JWT from "jsonwebtoken";
 
 export const registerController = async (req, res) => {
   try {
-    const { name, email, password,age,address,reEnterPassword,Contact,role } = req.body;
+    const { name, email, password,age,reEnterPassword,Contact,role } = req.body;
     //validations
     if (!name) {
       return res.send({ error: "Name is Required" });
     }
     if (!email) {
       return res.send({ message: "Email is Required" });
-    }
-    if (!address) {
-      return res.send({ message: "Address is Required" });
     }
     if (!password) {
       return res.send({ message: "Password is Required" });
@@ -49,7 +46,6 @@ export const registerController = async (req, res) => {
         age,
         reEnterPassword,
         Contact,
-        address,
     }).save();
 
     res.status(201).send({
@@ -67,7 +63,7 @@ export const registerController = async (req, res) => {
   }
 };
 
-//POST LOGIN
+
 export const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -120,8 +116,6 @@ export const loginController = async (req, res) => {
     });
   }
 };
-
-//forgotPasswordController
 
 export const forgotPasswordController = async (req, res) => {
   try {
@@ -197,7 +191,7 @@ export const feedbackController = async (req, res) => {
 
 export const queryController = async (req, res) => {
     try {
-      const { name, email, subject, contact, query } = req.body;
+      const { name, email,query } = req.body;
       //validations
       if (!name) {
         return res.send({ error: "Name is Required" });
@@ -205,21 +199,13 @@ export const queryController = async (req, res) => {
       if (!email) {
         return res.send({ message: "Email is Required" });
       }
-      if (!contact) {
-        return res.send({ message: "Contact is Required" });
-      }
-      if (!subject) {
-        return res.send({ message: "subject is Required" });
-      }
       if (!query) {
         return res.send({ message: "query is Required" });
       }
       const contacted = await new Contact({
           name,
           email,
-          contact,
           query,
-          subject
       }).save();
   
       res.status(201).send({

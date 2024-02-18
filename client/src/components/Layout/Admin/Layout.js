@@ -25,22 +25,22 @@ export default function Layout({ children }) {
                   aria-current="page"
                   to="/dashboard/admin"
                 >
-                  Home
+                  HOME
                 </NavLink>
               </li>
               <li className="nav-item mx-2">
                 <NavLink className="nav-link" to="/dashboard/admin/createcategory">
-                  Add Category
+                  ADD CATEGORY
                 </NavLink>
               </li>
               <li className="nav-item mx-2">
                 <NavLink className="nav-link" to="/dashboard/admin/createproduct">
-                  Add Product
+                  ADD PRODUCT
                 </NavLink>
               </li>
               <li className="nav-item mx-2">
                 <NavLink className="nav-link" to="/dashboard/admin/products">
-                  All Products
+                  ALL PRODUCTS
                 </NavLink>
               </li>
               <li className="nav-item mx-2" >
@@ -48,19 +48,21 @@ export default function Layout({ children }) {
             to="/dashboard/admin/orders"
             className="nav-link"
             >
-            Orders
+            ORDERS
           </NavLink>
             </li>
               <li className="nav-item mx-2">
-                <NavLink className="nav-link" onClick={handleLogout} to="/">
-                  Logout
+                <NavLink className="nav-link" 
+                style={{color: "red"}}
+                onClick={handleLogout} to="/">
+                  LOGOUT
                 </NavLink>
               </li>
             </ul>
           </div>
         </div>
       </nav>
-      <main style={{ minHeight: "100vh" }}>
+      <main style={{ minHeight: "90vh" }}>
         <Toaster />
         {children}
       </main>

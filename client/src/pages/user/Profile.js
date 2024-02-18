@@ -47,11 +47,9 @@ const Profile = () => {
   };
     return (
       <Layout title={"Your Profile"}>
-      <div className="container-fluid m-3 p-3">
+      <div className="container-fluid m-auto mt-3">
         <div className="row">
-          <div className="col-md-3">
-          </div>
-          <div className="col-md-9">
+          <div className="col-md-9 m-auto">
             <div className="form-container ">
               <form onSubmit={handleSubmit}>
                 <h4 className="title">USER PROFILE</h4>
@@ -62,7 +60,7 @@ const Profile = () => {
                     onChange={(e) => setName(e.target.value)}
                     className="form-control"
                     id="exampleInputEmail1"
-                    placeholder="Enter Your Name"
+                    placeholder="NAME"
                     autoFocus
                   />
                 </div>
@@ -73,7 +71,7 @@ const Profile = () => {
                     onChange={(e) => setEmail(e.target.value)}
                     className="form-control"
                     id="exampleInputEmail1"
-                    placeholder="Enter Your Email "
+                    placeholder="EMAIL"
                     disabled
                   />
                 </div>
@@ -84,7 +82,7 @@ const Profile = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     className="form-control"
                     id="exampleInputPassword1"
-                    placeholder="Enter Your Password"
+                    placeholder="PASSWORD"
                   />
                 </div>
                 <div className="mb-3">
@@ -94,7 +92,7 @@ const Profile = () => {
                     onChange={(e) => setContact(e.target.value)}
                     className="form-control"
                     id="exampleInputEmail1"
-                    placeholder="Enter Your Phone"
+                    placeholder="PHONE"
                   />
                 </div>
                 <div className="mb-3">
@@ -104,7 +102,7 @@ const Profile = () => {
                     onChange={(e) => setAddress(e.target.value)}
                     className="form-control"
                     id="exampleInputEmail1"
-                    placeholder="Enter Your Address"
+                    placeholder="ADDRESS"
                   />
                 </div>
                 <button type="submit" className="btn btn-primary">

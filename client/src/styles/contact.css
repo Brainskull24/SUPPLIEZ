@@ -1,15 +1,29 @@
-.wrapperc{
-    width: 40%;
-    background: #fff;
-    border: 2px solid black;
-    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
-    border-radius: 8px;
+.wrapper{
+    width: 80%;
+    display: flex;
+    align-items: center;
     margin: auto;
     padding: 1rem;
     margin-top:20px;
-    align-items: center;
-    text-align: center;
+    justify-content: center;
 }
-.wrapperc form .form-label{
-    text-align: left;
+.wrapperc{
+    width: 35%;
+    background: #fff;
+    background-color: rgba(20,20,23,0.788);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.wrapperc > input{
+    color: transparent;
+}
+
+.wrapperc > textarea{
+    resize: vertical; 
+    max-height: 200px;
+}
+.wrapperl{
+    width: 40%;
 }

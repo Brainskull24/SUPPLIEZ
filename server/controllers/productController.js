@@ -2,10 +2,10 @@ import productModel from "../models/productModel.js";
 import categoryModel from "../models/categoryModel.js";
 import orderModel from "../models/orderModel.js";
 import slugify from "slugify";
-import fs from "fs"
 import braintree from "braintree";
 import dotenv from "dotenv";
 dotenv.config();
+
 var gateway = new braintree.BraintreeGateway({
   environment: braintree.Environment.Sandbox,
   merchantId: process.env.BRAINTREE_MERCHANTID,
@@ -13,36 +13,24 @@ var gateway = new braintree.BraintreeGateway({
   privateKey: process.env.BRAINTREE_PRIVATEKEY,
 });
 
-
 export const createProductController = async (req, res) => {
   try {
-    const {name, sname , category ,Price, Quantity , Unit} = req.fields;
-    const { photo } = req.files;
-  
-    switch (true) {
-      case !name:
-        return res.status(500).send({ error: "Name is Required" });
-      case !sname:
-        return res.status(500).send({ error: "Name is Required" });
-      case !Unit:
-        return res.status(500).send({ error: "Unit is Required" });
-      case !Price:
-        return res.status(500).send({ error: "Price is Required" });
-      case !category:
-        return res.status(500).send({ error: "Category is Required" });
-      case !Quantity:
-        return res.status(500).send({ error: "Quantity is Required" });
-      case photo && photo.size > 1000000:
-        return res
-          .status(500)
-          .send({ error: "photo is Required and should be less then 1mb" });
+    const { name, sellername, category, price, quantity, unit } = req.body;
+    const photo  = req.file;
+    if (!name || !sellername || !category || !price || !quantity || !unit || !photo) {
+      return res.status(400).json({ message: "error in data" });
     }
-    const products = new productModel({...req.fields , slug: slugify(name) });
-    if (photo) {
-      products.photo.data = fs.readFileSync(photo.path);
-      products.photo.contentType = photo.type;
-    }
-    await products.save();
+
+    const products = await new productModel({
+      name,
+      sellername,
+      category,
+      price,
+      quantity,
+      unit,
+      slug: slugify(name),
+      photos: [{ data: photo.buffer, contentType: photo.mimetype }],
+    }).save();
     res.status(201).send({
       success: true,
       message: "Product Created Successfully",
@@ -57,8 +45,6 @@ export const createProductController = async (req, res) => {
     });
   }
 };
-
-
 
 //get all products
 export const getProductController = async (req, res) => {
@@ -127,23 +113,22 @@ export const deleteProductController = async (req, res) => {
 //update product
 export const updateProductController = async (req, res) => {
   try {
-    const { name, sname, Price, category, Quantity, Unit } =
-      req.fields;
-    const { photo } = req.files;
+    const { name, sellername,price, category, quantity, unit } = req.body;
+    const photo = req.file;
     //alidation
     switch (true) {
       case !name:
         return res.status(500).send({ error: "Name is Required" });
-      case !sname:
+      case !sellername:
         return res.status(500).send({ error: "Seller name is Required" });
-      case !Price:
+      case !price:
         return res.status(500).send({ error: "Price is Required" });
       case !category:
         return res.status(500).send({ error: "Category is Required" });
-      case !Quantity:
+      case !quantity:
         return res.status(500).send({ error: "Quantity is Required" });
-      case !Unit:
-          return res.status(500).send({ error: "Unit is Required" });
+      case !unit:
+        return res.status(500).send({ error: "Unit is Required" });
       case photo && photo.size > 1000000:
         return res
           .status(500)
@@ -155,10 +140,6 @@ export const updateProductController = async (req, res) => {
       { ...req.fields, slug: slugify(name) },
       { new: true }
     );
-    if (photo) {
-      products.photo.data = fs.readFileSync(photo.path);
-      products.photo.contentType = photo.type;
-    }
     await products.save();
     res.status(201).send({
       success: true,
@@ -178,10 +159,6 @@ export const updateProductController = async (req, res) => {
 export const productPhotoController = async (req, res) => {
   try {
     const product = await productModel.findById(req.params.pid).select("photo");
-    if (product.photo.data) {
-      res.set("Content-type", product.photo.contentType);
-      return res.status(200).send(product.photo.data);
-    }
   } catch (error) {
     console.log(error);
     res.status(500).send({

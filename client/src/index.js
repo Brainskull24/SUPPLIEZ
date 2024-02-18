@@ -13,8 +13,8 @@ ReactDOM.render(
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </CartProvider>
-  </SearchProvider>
-</AuthProvider>,
+       </CartProvider>
+   </SearchProvider>
+ </AuthProvider>,
   document.getElementById('root')
 )

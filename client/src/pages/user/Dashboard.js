@@ -7,13 +7,13 @@ export default function SupDashboard() {
     <main>
       <Layout>
       <div>
-      <h1>SUPPLIER DASHBOARD</h1>
-      <div className="col-md-9">
-          <div className="card w-75 p-3">
-            <h3> Supplier Name : {auth?.user?.name}</h3>
-            <h3> Supplier Email : {auth?.user?.email}</h3>
-            <h3> Supplier Contact : {auth?.user?.Contact}</h3>
-            <h3> Supplier Address: {auth?.user?.address}</h3>
+      <div className="col-md-9 mt-3" style={{margin: "auto"}}>
+      <h1>USER DASHBOARD</h1>
+          <div className="card w-75 p-3 mt-3">
+            <h4> NAME : {auth?.user?.name}</h4>
+            <h4> EMAIL : {auth?.user?.email}</h4>
+            <h4> CONTACT : {auth?.user?.Contact}</h4>
+            <h4> ADDRESS: {auth?.user?.address}</h4>
           </div>
       </div>
     </div>

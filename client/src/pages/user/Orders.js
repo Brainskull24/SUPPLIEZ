@@ -21,11 +21,9 @@ const Orders = () => {
   }, [auth?.token]);
   return (
     <Layout title={"Your Orders"}>
-      <div className="container-flui p-3 m-3 dashboard">
+      <div className="container-flui p-3 m-auto dashboard">
         <div className="row">
-          <div className="col-md-3">
-          </div>
-          <div className="col-md-9">
+          <div className="col-md-14 mt-2 mb-2">
             <h1 className="text-center">All Orders</h1>
             {orders?.map((o, i) => {
               return (
@@ -34,11 +32,11 @@ const Orders = () => {
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Buyer</th>
-                        <th scope="col"> date</th>
-                        <th scope="col">Payment</th>
-                        <th scope="col">Quantity</th>
+                        <th scope="col">STATUS</th>
+                        <th scope="col">BUYER</th>
+                        <th scope="col">DATE</th>
+                        <th scope="col">PAYMENT</th>
+                        <th scope="col">QUANTITY</th>
                       </tr>
                     </thead>
                     <tbody>

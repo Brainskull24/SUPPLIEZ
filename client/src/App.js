@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import {Routes,Route} from "react-router-dom";
 import './App.css'
 import Homepage from "./components/Homepage"
 import Login from "./pages/Auth/login"
@@ -25,6 +25,7 @@ import Policy from "./components/Policy";
 import Pagenotfound from "./components/Pagenotfound";
 import CartPage from "./pages/CartPage";
 import AdminOrders from "./pages/admin/AdminOrders";
+import ProfilePage from "./pages/profile";
 function App() {
   return (
     <>
@@ -55,6 +56,7 @@ function App() {
           <Route path="/login" element = {<Login/>}/>
           <Route path ="/about" element = {<About/>}/>
           <Route path ="/contact" element = {<Contact/>}/>
+          <Route path ="/profile" element = {<ProfilePage/>}/>
           <Route path="/forgot-password" element = {<ForgotPassword/>}/>
           <Route path="/policy" element={<Policy />} />
           <Route path="*" element={<Pagenotfound />} />

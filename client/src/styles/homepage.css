@@ -1,3 +1,4 @@
+
 .homepage {
     display: flex;
     flex-direction: column;
@@ -57,7 +58,7 @@
   }
   
   .right-col>form>input,
-  textarea,
+  .right-col > form > textarea,
   button {
     width: 60%;
     margin: 7px;

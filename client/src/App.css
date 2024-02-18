@@ -119,5 +119,6 @@
     text-align: center;
   }
   
-  /* Signup  */
-  
+  body{
+    font-family: 'poppins';
+  }

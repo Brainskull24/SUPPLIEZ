@@ -26,7 +26,7 @@ const Products = () => {
       <div className="row">
       <div className="col-md-1 "></div>
         <div className="col-md-9 ">
-          <h1 className="text-center">All Products List</h1>
+          <h1 className="text-center">PRODUCTS AVAILIABLE</h1>
           <div className="d-flex flex-wrap">
             {products?.map((p) => (
               <Link
@@ -41,9 +41,9 @@ const Products = () => {
                     alt={p.name}
                     />
                   <div className="card-body">
-                    <h5 className="card-title">Product Name : {p.name}</h5>
-                    <h5 className="card-title">Seller Name :{p.sname}</h5>
-                    <h5 className="card-title">Price: {p.Price}</h5>
+                    <h5 className="card-title">NAME: {p.name}</h5>
+                    <h5 className="card-title">SELLER: {p.sname}</h5>
+                    <h5 className="card-title">PRICE: {p.Price}</h5>
                   </div>
                 </div>
               </Link>

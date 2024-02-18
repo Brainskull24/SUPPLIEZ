@@ -2,12 +2,19 @@ import React, { useState, useEffect } from "react";
 import Layout from "./../components/Layout/Home/Layout";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { useCart } from "../context/cart";
+import toast from "react-hot-toast";
+import "../styles/productdetails.css"
 const ProductDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
+  const [cart, setCart] = useCart();
+  const [categories, setCategories] = useState([]);
   const [product, setProduct] = useState({});
+  const [products, setProducts] = useState([]);
   const [relatedProducts, setRelatedProducts] = useState([]);
-
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   //initalp details
   useEffect(() => {
     if (params?.slug) getProduct();
@@ -24,6 +31,30 @@ const ProductDetails = () => {
       console.log(error);
     }
   };
+
+  const getAllCategory = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:9002/api/v1/category/allcategory");
+      if (data?.success) {
+        setCategories(data?.category);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAllProducts = async () => {
+    try {
+      setLoading(true);
+      const { data } = await axios.get(`http://localhost:9002/api/v1/product/productlist/${page}`);
+      setLoading(false);
+      setProducts(data.products);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
   //get similar product
   const getSimilarProduct = async (pid, cid) => {
     try {
@@ -48,16 +79,35 @@ const ProductDetails = () => {
           />
         </div>
         <div className="col-md-6 ">
-          <h1 className="text-center">Product Details</h1>
-          <h6>Name : {product.name}</h6>
-          <h6>Price : {product.Price}</h6>
-          <h6>Category : {product?.category?.name}</h6>
-          <button class="btn btn-secondary ms-1">ADD TO CART</button>
+          <h3 className="text-center">PRODUCT DETAILS</h3>
+          <br></br>
+          <h6>NAME : {product.name}</h6>
+          <h6>PRICE : {product.Price}</h6>
+          <h6>CATEGORY : {product?.category?.name}</h6>
+
+          {products?.map((p) => (
+          <div className="d-flex">
+            <button
+                    className="btn btn-primary m-1"
+                    onClick={() => {
+                      setCart([...cart, p]);
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, p])
+                      );
+                      toast.success("Item Added to cart");
+                    }}
+                  >
+                    ADD TO CART
+                  <i class="fa-solid fa-bag-shopping fa-xl"></i>
+                </button>
+          </div>
+          ))}
         </div>
       </div>
       <hr />
       <div className="row container">
-        <h6>Similar Products</h6>
+        <h6>SIMILAR PRODUCTS</h6>
         {relatedProducts.length < 1 && (
           <p className="text-center">No Similar Products found</p>
         )}
@@ -78,7 +128,19 @@ const ProductDetails = () => {
                 >
                   More Details
                 </button>
-                <button class="btn btn-secondary ms-1">ADD TO CART</button>
+                <button
+                    className="btn btn-primary m-1"
+                    onClick={() => {
+                      setCart([...cart, p]);
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, p])
+                      );
+                      toast.success("Item Added to cart");
+                    }}
+                  >
+                  <i class="fa-solid fa-bag-shopping fa-xl"></i>
+                </button>
               </div>
             </div>
           ))}

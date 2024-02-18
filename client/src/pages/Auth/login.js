@@ -1,10 +1,10 @@
 import React, {useState} from "react"
-import "../../styles/login.css"
+import "../../styles/register.css"
 import axios from "axios"
 import { useLocation, useNavigate} from "react-router-dom"
 import { useAuth } from "../../context/auth";
-import Layout from "../../components/Layout/Home/Layout";
-
+import Layout from "../../components/Layout/Home/Navbar";
+import registerImage from "../../imgs/register.jpg"
 const Login = () => {
     const [ user, setUser] = useState({
         email:"",
@@ -36,25 +36,24 @@ const Login = () => {
             console.log(error);
         })
     }
-
+    const divStyle = {
+        backgroundImage: `url(${registerImage})`,
+        backgroundSize: 'cover',  
+        minHeight:"100vh"
+    };
     return (
-        <main style={{ minHeight: "110vh" }} >
+        <main style={divStyle} >
         <Layout>
-        <div className="wrapper">
-        <div className="title-text">
-           <div className="title login">
-               <h1> Login </h1>
-           </div>
-        </div>
-            <input type="text" name="email" value={user.email} onChange={handleChange} placeholder="Enter your Email"></input>
-            <input type="password" name="password" value={user.password} onChange={handleChange}  placeholder="Enter your Password" ></input>
-            <div className="button" onClick={() => {
-                navigate("/forgot-password");
-            }}>Forgot Password</div>
-            <div className="button" onClick={login}>Login</div>
-            {/* <div className="button" onClick={() => navigate("/register")}>Register</div> */}
-     </div>
         </Layout>
+        <div className="flex register m-auto w-3/10 rounded-md mt-2 text-center p-4 bg-[rgba(20,20,23,0.788)]">
+            <h3>Login Now</h3>
+            <input className = "register-input" type="text" name="email" value={user.email} onChange={handleChange} placeholder="Enter your Email"></input>
+            <input className = "register-input" type="password" name="password" value={user.password} onChange={handleChange}  placeholder="Enter your Password" ></input>
+            <span className="cursor-pointer" onClick={() => {navigate("/forgot-password");}}>Forgot Password ?</span>
+            <div className="register-buttons">
+                <div className="register-button" onClick={login}>LOGIN</div>
+            </div>
+        </div>
      </main>    
     )
 }

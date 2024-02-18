@@ -22,7 +22,7 @@ export default function Footer() {
               </div>
           </div>
           <div className="footer-down">
-              <h1>Copyright © Supply Management System 2023 All rights reserved</h1>
+              <h1 className='text-3xl'>Copyright © Supply Management System 2023 All rights reserved</h1>
               <div className="fd-buttons">
                 <NavLink href = "/policy"> Privacy Policy </NavLink> 
                 <NavLink href = "/pagenotfound"> Terms of use </NavLink> 

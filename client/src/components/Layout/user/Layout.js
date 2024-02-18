@@ -20,16 +20,16 @@ export default function Layout({ children }) {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav m-auto ">
               <li className="nav-item mx-2">
-                <NavLink className="nav-link active" aria-current="page" to="/dashboard/user">Home</NavLink>
+                <NavLink className="nav-link active" aria-current="page" to="/dashboard/user">HOME</NavLink>
               </li>
                 <li className="nav-item mx-2">
-                    <NavLink className="nav-link" to="/dashboard/user/orders">Orders</NavLink>
+                    <NavLink className="nav-link" to="/dashboard/user/orders">ORDERS</NavLink>
                 </li>
                 <li className="nav-item mx-2">
-                  <NavLink className="nav-link" to='/dashboard/user/profile'>About</NavLink>
+                  <NavLink className="nav-link" to='/dashboard/user/profile'>ABOUT</NavLink>
                 </li>
               <li className="nav-item mx-2">
-                <NavLink className="nav-link" onClick={handleLogout} to = "/">Logout</NavLink>
+                <NavLink className="nav-link" onClick={handleLogout} to = "/" style={{color: "red"}}>LOGOUT</NavLink>
               </li>
             </ul>
           </div>

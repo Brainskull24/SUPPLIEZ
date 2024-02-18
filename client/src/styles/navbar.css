@@ -1,0 +1,11 @@
+.n-logo,.cart-logo{
+    height: 40px;
+    width: 60px;
+}
+.nav-link{
+    color: black;
+    font-weight: 600;
+}
+.c-count{
+    width: 25px;
+}

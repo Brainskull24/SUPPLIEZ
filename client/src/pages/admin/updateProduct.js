@@ -2,20 +2,18 @@ import React, { useState, useEffect } from "react";
 import Layout from "./../../components/Layout/Admin/Layout";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { Select } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
-const { Option } = Select;
 
 const UpdateProduct = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
-  const [sname, setSname] = useState("");
-  const [Price, setPrice] = useState("");
+  const [sellername, setSellerName] = useState("");
+  const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
-  const [Quantity, setQuantity] = useState("");
-  const [Unit, setUnit] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [unit, setUnit] = useState("");
   const [photo, setPhoto] = useState("");
   const [id, setId] = useState("");
 
@@ -27,11 +25,11 @@ const UpdateProduct = () => {
       );
       setName(data.product.name);
       setId(data.product._id);
-      setSname(data.product.sname);
+      setSellerName(data.product.sellername);
       setPrice(data.product.price);
-      // setPhoto(data.product.photo);
+      setPhoto(data.product.photo);
       setQuantity(data.product.quantity);
-      setUnit(data.product.Unit);
+      setUnit(data.product.unit);
       setCategory(data.product.category._id);
     } catch (error) {
       console.log(error);
@@ -64,10 +62,10 @@ const UpdateProduct = () => {
     try {
       const productData = new FormData();
       productData.append("name", name);
-      productData.append("sname", sname);
-      productData.append("price", Price);
-      productData.append("quantity", Quantity);
-      productData.append("Unit", Unit);
+      productData.append("sname", sellername);
+      productData.append("price", price);
+      productData.append("quantity", quantity);
+      productData.append("Unit", unit);
       photo && productData.append("photo", photo);
       productData.append("category", category);
       const { data } = axios.put(
@@ -91,7 +89,7 @@ const UpdateProduct = () => {
     try {
       let answer = window.prompt("Are You Sure want to delete this product ? ");
       if (!answer) return;
-      const { data } = await axios.delete(
+      axios.delete(
         `http://localhost:9002/api/v1/product/deleteproduct/${id}`
       );
       toast.success("Product DEleted Succfully");
@@ -110,22 +108,20 @@ const UpdateProduct = () => {
           <div className="col-md-9">
             <h1>Update Product</h1>
             <div className="m-1 w-75">
-              <Select
-                bordered={false}
+              <select
+                value={category}
                 placeholder="Select a category"
-                size="large"
-                showSearch
                 className="form-select mb-3"
-                onChange={(value) => {
-                  setCategory(value);
+                onChange={(e) => {
+                  setCategory(e.target.value);
                 }}
               >
                 {categories?.map((c) => (
-                  <Option key={c._id} value={c._id}>
+                  <option key={c._id} value={c._id}>
                     {c.name}
-                  </Option>
+                  </option>
                 ))}
-              </Select>
+              </select>
               <div className="mb-3">
                 <label className="btn btn-outline-secondary col-md-12">
                   {photo ? photo.name : "Upload Photo"}
@@ -152,6 +148,7 @@ const UpdateProduct = () => {
               </div>
               <div className="mb-3">
                 <input
+                name="name"
                   type="text"
                   value={name}
                   placeholder="write a name"
@@ -162,17 +159,19 @@ const UpdateProduct = () => {
               <div className="mb-3">
                 <input
                   type="text"
-                  value={sname}
-                  placeholder="write Seller's Name"
+                  name="sellername"
+                  value={sellername}
+                  placeholder="Seller Name"
                   className="form-control"
-                  onChange={(e) => setSname(e.target.value)}
+                  onChange={(e) => setSellerName(e.target.value)}
                 />
               </div>
 
               <div className="mb-3">
                 <input
+                  name="price"
                   type="number"
-                  value={Price}
+                  value={price}
                   placeholder="write a Price"
                   className="form-control"
                   onChange={(e) => setPrice(e.target.value)}
@@ -180,27 +179,27 @@ const UpdateProduct = () => {
               </div>
               <div className="mb-3">
                 <input
+                name="quantity"
                   type="number"
-                  value={Quantity}
+                  value={quantity}
                   placeholder="write a quantity"
                   className="form-control"
                   onChange={(e) => setQuantity(e.target.value)}
                 />
               </div>
               <div className="mb-3">
-                <Select
-                  bordered={false}
-                  placeholder="Select Unit "
-                  size="large"
-                  showSearch
+                <select
+                name="unit"
+                value={unit}
+                  placeholder="Select Unit"
                   className="form-select mb-3"
-                  onChange={(value) => {
-                    setUnit(value);
+                  onChange={(e) => {
+                    setUnit(e.target.value);
                   }}
                 >
-                  <Option value="kgs">KGS</Option>
-                  <Option value="kuntuls">KUNTULS</Option>
-                </Select>
+                  <option value="kgs">KGS</option>
+                  <option value="kuntuls">KUNTULS</option>
+                </select>
               </div>
               <div className="mb-3">
                 <button className="btn btn-primary" onClick={handleUpdate}>
