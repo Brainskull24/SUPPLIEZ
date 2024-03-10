@@ -1,0 +1,11 @@
+.card-title{
+    text-decoration: none;
+}
+
+.product-box{
+    display: ruby;
+}
+.product-container{
+    border: 2px;
+    border-color: black;
+}

@@ -32,8 +32,8 @@ router.post(
 //routes
 router.put(
   "/updateproduct/:id",
-  requireSignIn,
-  isAdmin,
+  // requireSignIn,
+  // isAdmin,
   updateProductController
 );
 

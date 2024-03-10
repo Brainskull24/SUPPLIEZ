@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../../../context/auth";
 import toast from "react-hot-toast";
 import SearchInput from "../../Forms/SearchInput";
@@ -34,15 +34,32 @@ const Navbar = () => {
         <div className="container-fluid">
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mx-4">
-              <li className="nav-item mx-3">
-                <Link className="nav-link">
-                  <img className="n-logo" src={logo}></img>
-                </Link>
-              </li>
-              <li className="nav-item mx-3">
-                <Link className="nav-link" aria-current="page" to="/">
-                  HOME
-                </Link>
+              
+              <li className="nav-item dropdown mx-3">
+                <NavLink
+                  className="nav-link dropdown-toggle"
+                  to={"/categories"}
+                  data-bs-toggle="dropdown"
+                >
+                  SHOP
+                </NavLink>
+                <ul className="dropdown-menu">
+                  <li className="mx-3">
+                    <NavLink className="dropdown-item" to={"/categories"}>
+                      ALL CATEGORIES
+                    </NavLink>
+                  </li>
+                  {categories?.map((c) => (
+                    <li className="mx-3">
+                      <NavLink
+                        className="dropdown-item"
+                        to={`/category/${c.slug}`}
+                      >
+                        {c.name}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
               </li>
               <li className="nav-item mx-3">
                 <NavLink className="nav-link" to="/about">
@@ -50,35 +67,9 @@ const Navbar = () => {
                 </NavLink>
               </li>
               <li className="nav-item mx-3">
-                <NavLink className="nav-link " to="/contact">
-                  CONTACT US
+                <NavLink className="nav-link" to="/">
+                  SUPPLIEZ
                 </NavLink>
-              </li>
-              <li className="nav-item dropdown mx-3">
-                <Link
-                  className="nav-link dropdown-toggle"
-                  to={"/categories"}
-                  data-bs-toggle="dropdown"
-                >
-                  CATEGORIES
-                </Link>
-                <ul className="dropdown-menu">
-                  <li className="mx-3">
-                    <Link className="dropdown-item" to={"/categories"}>
-                      ALL CATEGORIES
-                    </Link>
-                  </li>
-                  {categories?.map((c) => (
-                    <li className="mx-3">
-                      <Link
-                        className="dropdown-item"
-                        to={`/category/${c.slug}`}
-                      >
-                        {c.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
               </li>
               {!auth?.user ? (
                 <>
@@ -107,6 +98,14 @@ const Navbar = () => {
                   </li>
                   <li className="nav-item mx-3">
                     <NavLink
+                      to="/dashboard/orders"
+                      className="nav-link"
+                    >
+                      ORDERS
+                    </NavLink>
+                  </li>
+                  <li className="nav-item mx-3">
+                    <NavLink
                       onClick={handleLogout}
                       to="/login"
                       className="nav-link"
@@ -116,6 +115,7 @@ const Navbar = () => {
                   </li>
                 </>
               )}
+              
               <li className="nav-item mx-2">
                 <NavLink to="/profile" className="nav-link">
                   <i class="fa-regular fa-user fa-xl"></i>

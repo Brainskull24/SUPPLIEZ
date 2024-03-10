@@ -11,11 +11,11 @@ export default function Footer() {
                   <h2>FOLLOW US</h2>
                   <div className="f-icons">
                     <ul>
-                    <li><a to ="#"><ion-icon name="logo-facebook"></ion-icon></a></li>
-                    <li><a to ="#"><ion-icon name="logo-instagram"></ion-icon></a></li>
-                    <li><a to ="#"><ion-icon name="logo-twitter"></ion-icon></a></li>
-                    <li><a to ="#"><ion-icon name="logo-snapchat"></ion-icon></a></li>
-                    <li><a to ="#"><ion-icon name="logo-youtube"></ion-icon></a></li>
+                    <li><a to ="/"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                    <li><a to ="/"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                    <li><a to ="/"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                    <li><a to ="/"><ion-icon name="logo-snapchat"></ion-icon></a></li>
+                    <li><a to ="/"><ion-icon name="logo-youtube"></ion-icon></a></li>
                     </ul>
                   </div>
                 </div>

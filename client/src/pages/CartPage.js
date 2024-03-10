@@ -6,6 +6,7 @@ import DropIn from "braintree-web-drop-in-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+
 const CartPage = () => {
   const [auth, setAuth] = useAuth();
   const [cart, setCart] = useCart();
@@ -22,7 +23,7 @@ const CartPage = () => {
       });
       return total.toLocaleString("en-US", {
         style: "currency",
-        currency: "USD",
+        currency: "INR",
       });
     } catch (error) {
       console.log(error);
@@ -39,11 +40,12 @@ const CartPage = () => {
     } catch (error) {
       console.log(error);
     }
-
   };
   const getToken = async () => {
     try {
-      const { data } = await axios.get("http://localhost:9002/api/v1/product/braintree/token");
+      const { data } = await axios.get(
+        "http://localhost:9002/api/v1/product/braintree/token"
+      );
       setClientToken(data?.clientToken);
     } catch (error) {
       console.log(error);
@@ -58,10 +60,13 @@ const CartPage = () => {
     try {
       setLoading(true);
       const { nonce } = await instance.requestPaymentMethod();
-      const { data } = await axios.post("http://localhost:9002/api/v1/product/braintree/payment", {
-        nonce,
-        cart,
-      });
+      const { data } = await axios.post(
+        "http://localhost:9002/api/v1/product/braintree/payment",
+        {
+          nonce,
+          cart,
+        }
+      );
       setLoading(false);
       localStorage.removeItem("cart");
       setCart([]);
@@ -103,8 +108,11 @@ const CartPage = () => {
                   />
                 </div>
                 <div className="col-md-8">
-                  <p>{p.name}</p>
-                  <p>Price : {p.Price}</p>
+                  <p>Product Name : {p.name}</p>
+                  <p>Price : Rs. {p.price}</p>
+                  <p>
+                    Quantity : {p.quantity} {p.unit}
+                  </p>
                   <button
                     className="btn btn-danger"
                     onClick={() => removeCartItem(p._id)}
@@ -138,7 +146,7 @@ const CartPage = () => {
                 {auth?.token ? (
                   <button
                     className="btn btn-outline-warning"
-                    onClick={() => navigate("/dashboard/user/profile")}
+                    onClick={() => navigate("/profile")}
                   >
                     Update Address
                   </button>
@@ -171,11 +179,7 @@ const CartPage = () => {
                     onInstance={(instance) => setInstance(instance)}
                   />
 
-                  <button
-                    className="btn btn-primary"
-                    onClick={handlePayment}
-                    
-                  >
+                  <button className="btn btn-primary" onClick={handlePayment}>
                     {loading ? "Processing ...." : "Make Payment"}
                   </button>
                 </>

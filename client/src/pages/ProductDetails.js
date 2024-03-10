@@ -9,11 +9,14 @@ const ProductDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [cart, setCart] = useCart();
+  // eslint-disable-next-line
   const [categories, setCategories] = useState([]);
   const [product, setProduct] = useState({});
   const [products, setProducts] = useState([]);
   const [relatedProducts, setRelatedProducts] = useState([]);
+  // eslint-disable-next-line
   const [page, setPage] = useState(1);
+  // eslint-disable-next-line
   const [loading, setLoading] = useState(false);
   //initalp details
   useEffect(() => {
@@ -31,7 +34,7 @@ const ProductDetails = () => {
       console.log(error);
     }
   };
-
+// eslint-disable-next-line
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get("http://localhost:9002/api/v1/category/allcategory");
@@ -42,7 +45,7 @@ const ProductDetails = () => {
       console.log(error);
     }
   };
-
+// eslint-disable-next-line
   const getAllProducts = async () => {
     try {
       setLoading(true);

@@ -28,6 +28,9 @@ export default function Layout({ children }) {
                 <li className="nav-item mx-2">
                   <NavLink className="nav-link" to='/dashboard/user/profile'>ABOUT</NavLink>
                 </li>
+                <li className="nav-item mx-2">
+                <NavLink className="nav-link" to = "/">BACK</NavLink>
+              </li>
               <li className="nav-item mx-2">
                 <NavLink className="nav-link" onClick={handleLogout} to = "/" style={{color: "red"}}>LOGOUT</NavLink>
               </li>

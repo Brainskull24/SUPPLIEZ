@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import Layout from "./../../components/Layout/Admin/Layout";
 import toast from "react-hot-toast";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const CreateProduct = () => {
+const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
   const [sellername, setSellerName] = useState("");
@@ -42,15 +43,18 @@ const CreateProduct = () => {
     productData.append("photo", photo);
     productData.append("category", category);
     productData.append("unit", unit);
-
+    if (
+      name && sellername && price && quantity && photo && category && unit){
     axios
       .post("http://localhost:9002/api/v1/product/createproduct", productData)
       .then((res) => {
         alert(res.data.message);
+        navigate('/dashboard/admin/products')
       })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
+    }
+    else {
+      alert("invlid input");
+    }
   };
 
   return (

@@ -4,7 +4,6 @@ import {
   loginController,
   forgotPasswordController,
   feedbackController,
-  queryController,
   updateProfileController,
   getOrdersController,
   getAllOrdersController,
@@ -21,8 +20,6 @@ router.post("/login", loginController);
 router.post("/forgot-password", forgotPasswordController);
 
 router.post("/feedback", feedbackController);
-
-router.post("/queries", queryController)
 
 //protected Farmer route auth
 router.get("/supplier", requireSignIn , (req, res) => {

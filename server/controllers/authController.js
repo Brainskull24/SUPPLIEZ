@@ -1,10 +1,10 @@
 import userModel from "../models/userModel.js";
 import feedModel from "../models/feedModel.js";
 import orderModel from "../models/orderModel.js";
-import Contact from "../models/contact.js"
 import { comparePassword, hashPassword } from "./../helpers/authHelper.js";
 import JWT from "jsonwebtoken";
 
+//register
 export const registerController = async (req, res) => {
   try {
     const { name, email, password,age,reEnterPassword,Contact,role } = req.body;
@@ -62,8 +62,7 @@ export const registerController = async (req, res) => {
     });
   }
 };
-
-
+//login
 export const loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -116,7 +115,7 @@ export const loginController = async (req, res) => {
     });
   }
 };
-
+//forgotpassword
 export const forgotPasswordController = async (req, res) => {
   try {
     const { email, Contact, password } = req.body;
@@ -153,8 +152,7 @@ export const forgotPasswordController = async (req, res) => {
     });
   }
 };
-
-
+//feedback
 export const feedbackController = async (req, res) => {
     try {
       const { name, email, feedbacktext } = req.body;
@@ -187,44 +185,8 @@ export const feedbackController = async (req, res) => {
         error,
       });
     }
-  };
-
-export const queryController = async (req, res) => {
-    try {
-      const { name, email,query } = req.body;
-      //validations
-      if (!name) {
-        return res.send({ error: "Name is Required" });
-      }
-      if (!email) {
-        return res.send({ message: "Email is Required" });
-      }
-      if (!query) {
-        return res.send({ message: "query is Required" });
-      }
-      const contacted = await new Contact({
-          name,
-          email,
-          query,
-      }).save();
-  
-      res.status(201).send({
-        success: true,
-        message: "Query sent Successfully",
-        contacted,
-      });
-    } catch (error) {
-      console.log(error);
-      res.status(500).send({
-        success: false,
-        message: "Error",
-        error,
-      });
-    }
-  };
-
-
-//update prfole
+};
+//update profile
 export const updateProfileController = async (req, res) => {
   try {
     const { name, email, password, address,Contact} = req.body;
@@ -258,7 +220,7 @@ export const updateProfileController = async (req, res) => {
     });
   }
 };
-//orders
+//get orders
 export const getOrdersController = async (req, res) => {
   try {
     const orders = await orderModel
@@ -275,7 +237,7 @@ export const getOrdersController = async (req, res) => {
     });
   }
 };
-//orders
+//all orders
 export const getAllOrdersController = async (req, res) => {
   try {
     const orders = await orderModel
@@ -293,7 +255,6 @@ export const getAllOrdersController = async (req, res) => {
     });
   }
 };
-
 //order status
 export const orderStatusController = async (req, res) => {
   try {
