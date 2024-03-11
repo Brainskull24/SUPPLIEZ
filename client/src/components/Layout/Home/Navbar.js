@@ -62,7 +62,7 @@ const Navbar = () => {
               </li>
               <li className="nav-item mx-3">
                 <NavLink className="nav-link" to="/about">
-                  ABOUT
+                  OUR STORY
                 </NavLink>
               </li>
               <SearchInput />

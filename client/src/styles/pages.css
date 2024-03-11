@@ -1,0 +1,39 @@
+/* Categories.js */
+
+.categories{
+    display: flex;
+    flex-direction: column;
+}
+
+.categories-box{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.categories-head{
+    display: flex;
+    border: 2px solid;
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+    margin: 0%;
+}
+
+.categories-btn{
+    display: flex;
+    width: 15%;
+    justify-content: center;
+    align-items: center;
+    background: white;
+}
+
+.btn-link{
+    text-decoration: none;
+    color: black;
+}
