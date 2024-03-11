@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../context/auth";
-import Layout from "../../components/Layout/Home/Navbar";
-import registerImage from "../../imgs/register.jpg";
+import Layout from "../../components/Layout/Home/Layout";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -40,15 +39,8 @@ const Login = () => {
       });
   };
 
-  const divStyle = {
-    backgroundImage: `url(${registerImage})`,
-    backgroundSize: "cover",
-    minHeight: "100vh",
-  };
-
   return (
-    <main style={divStyle}>
-      <Layout></Layout>
+    <Layout>
       <div className="flex register m-auto w-3/10 rounded-md mt-2 text-center p-4 bg-[rgba(20,20,23,0.788)]">
         <h3>Login Now</h3>
         <input
@@ -81,7 +73,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </main>
+    </Layout>
   );
 };
 

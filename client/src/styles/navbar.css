@@ -1,11 +1,49 @@
-.n-logo,.cart-logo{
-    height: 40px;
-    width: 60px;
+.navbar{
+    display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 5rem;
+    padding: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
+
+.nav-container{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0%;
+    width: 100%;
+    height: 100%;
+}
+
+.nav-box div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav-item{
+    list-style: none;
+
+}
+
 .nav-link{
-    color: black;
-    font-weight: 600;
+    font-weight: 400;
 }
-.c-count{
-    width: 25px;
+
+.main-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 7rem;
 }

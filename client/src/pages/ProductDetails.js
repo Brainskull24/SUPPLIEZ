@@ -4,24 +4,23 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../context/cart";
 import toast from "react-hot-toast";
-import "../styles/productdetails.css"
+import "../styles/productdetails.css";
 const ProductDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
+  
   const [cart, setCart] = useCart();
-  // eslint-disable-next-line
   const [categories, setCategories] = useState([]);
   const [product, setProduct] = useState({});
   const [products, setProducts] = useState([]);
   const [relatedProducts, setRelatedProducts] = useState([]);
-  // eslint-disable-next-line
   const [page, setPage] = useState(1);
-  // eslint-disable-next-line
   const [loading, setLoading] = useState(false);
-  //initalp details
+
   useEffect(() => {
     if (params?.slug) getProduct();
   }, [params?.slug]);
+
   //getProduct
   const getProduct = async () => {
     try {
@@ -34,10 +33,12 @@ const ProductDetails = () => {
       console.log(error);
     }
   };
-// eslint-disable-next-line
+
   const getAllCategory = async () => {
     try {
-      const { data } = await axios.get("http://localhost:9002/api/v1/category/allcategory");
+      const { data } = await axios.get(
+        "http://localhost:9002/api/v1/category/allcategory"
+      );
       if (data?.success) {
         setCategories(data?.category);
       }
@@ -45,11 +46,13 @@ const ProductDetails = () => {
       console.log(error);
     }
   };
-// eslint-disable-next-line
+
   const getAllProducts = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`http://localhost:9002/api/v1/product/productlist/${page}`);
+      const { data } = await axios.get(
+        `http://localhost:9002/api/v1/product/productlist/${page}`
+      );
       setLoading(false);
       setProducts(data.products);
     } catch (error) {
@@ -83,28 +86,23 @@ const ProductDetails = () => {
         </div>
         <div className="col-md-6 ">
           <h3 className="text-center">PRODUCT DETAILS</h3>
-          <br></br>
           <h6>NAME : {product.name}</h6>
-          <h6>PRICE : {product.Price}</h6>
+          <h6>PRICE : RS. {product.price}</h6>
           <h6>CATEGORY : {product?.category?.name}</h6>
-
           {products?.map((p) => (
-          <div className="d-flex">
-            <button
-                    className="btn btn-primary m-1"
-                    onClick={() => {
-                      setCart([...cart, p]);
-                      localStorage.setItem(
-                        "cart",
-                        JSON.stringify([...cart, p])
-                      );
-                      toast.success("Item Added to cart");
-                    }}
-                  >
-                    ADD TO CART
-                  <i class="fa-solid fa-bag-shopping fa-xl"></i>
-                </button>
-          </div>
+            <div className="d-flex">
+              <button
+                className="btn btn-primary m-1"
+                onClick={() => {
+                  setCart([...cart, p]);
+                  localStorage.setItem("cart", JSON.stringify([...cart, p]));
+                  toast.success("Item Added to cart");
+                }}
+              >
+                ADD TO CART
+                <i class="fa-solid fa-bag-shopping fa-xl"></i>
+              </button>
+            </div>
           ))}
         </div>
       </div>
@@ -132,16 +130,13 @@ const ProductDetails = () => {
                   More Details
                 </button>
                 <button
-                    className="btn btn-primary m-1"
-                    onClick={() => {
-                      setCart([...cart, p]);
-                      localStorage.setItem(
-                        "cart",
-                        JSON.stringify([...cart, p])
-                      );
-                      toast.success("Item Added to cart");
-                    }}
-                  >
+                  className="btn btn-primary m-1"
+                  onClick={() => {
+                    setCart([...cart, p]);
+                    localStorage.setItem("cart", JSON.stringify([...cart, p]));
+                    toast.success("Item Added to cart");
+                  }}
+                >
                   <i class="fa-solid fa-bag-shopping fa-xl"></i>
                 </button>
               </div>

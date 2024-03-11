@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import Layout from "../components/Layout/Home/Layout";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useCart } from "../context/cart"
+import toast from "react-hot-toast";
 const CategoryProduct = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
-
+  const [cart, setCart] = useCart();
   useEffect(() => {
     if (params?.slug) getPrductsByCat();
   }, [params?.slug]);
@@ -26,7 +28,7 @@ const CategoryProduct = () => {
   return (
     <Layout>
       <div className="container mt-3">
-        <h4 className="text-center">Category - {category?.name}</h4>
+        <h4 className="text-center">{category?.name}</h4>
         <h6 className="text-center">{products?.length} result found </h6>
         <div className="row">
           <div className="col-md-9 offset-1">
@@ -44,15 +46,25 @@ const CategoryProduct = () => {
                   />
                   <div className="card-body">
                     <h5 className="card-title">{p.name}</h5>
-                    <p className="card-text"> $ {p.Price}</p>
+                    <p className="card-text"> RS. {p.price}</p>
                     <button
                       className="btn btn-primary ms-1"
                       onClick={() => navigate(`/product/${p.slug}`)}
                     >
                       More Details
                     </button>
-                    <button className="btn btn-secondary ms-1">
-                      ADD TO CART
+                    <button
+                      className="btn btn-primary m-1"
+                      onClick={() => {
+                        setCart([...cart, p]);
+                        localStorage.setItem(
+                          "cart",
+                          JSON.stringify([...cart, p])
+                        );
+                        toast.success("Item Added to cart");
+                      }}
+                    >
+                      <i className="fa-solid fa-bag-shopping fa-xl"></i>
                     </button>
                   </div>
                 </div>

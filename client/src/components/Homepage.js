@@ -4,9 +4,9 @@ import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
 import { useCart } from "../context/cart";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-
+import { useNavigate } from "react-router-dom";
+import "../styles/card.css";
 const HomePage = () => {
   const [cart, setCart] = useCart();
   const [products, setProducts] = useState([]);
@@ -31,7 +31,6 @@ const HomePage = () => {
       console.log(error);
     }
   };
-
   useEffect(() => {
     getAllCategory();
     getTotal();
@@ -51,7 +50,6 @@ const HomePage = () => {
       console.log(error);
     }
   };
-
   // get total count
   const getTotal = async () => {
     try {
@@ -63,7 +61,6 @@ const HomePage = () => {
       console.log(error);
     }
   };
-
   useEffect(() => {
     if (page === 1) return;
     loadMore();
@@ -121,10 +118,14 @@ const HomePage = () => {
 
   return (
     <Layout>
-      <div className="col-m-auto">
-        <div className="d-flex flex-wrap">
+      <div className="product-box">
+        <div className="product-container">
           {products?.map((p) => (
-            <div className="card m-1" style={{ width: "18rem" }} key={p._id}>
+            <div
+              className="product-item card"
+              key={p._id}
+              onClick={() => navigate(`/product/${p.slug}`)}
+            >
               <img
                 src={`http://localhost:9002/api/v1/product/productphoto/${p._id}`}
                 style={{ width: "18rem", height: "13rem" }}
@@ -137,39 +138,37 @@ const HomePage = () => {
                   console.log("Image loaded successfully");
                 }}
               />
-
               <div className="card-body">
                 <h5 className="card-title">{p.name}</h5>
                 <p className="card-text">
                   RS: {p.price} / {p.unit}
                 </p>
-                <button
-                  className="btn btn-primary m-1"
-                  onClick={() => navigate(`/product/${p.slug}`)}
-                >
-                  More Details
-                </button>
-                <button
-                  className="btn btn-primary m-1"
-                  onClick={() => {
-                    setCart([...cart, p]);
-                    localStorage.setItem("cart", JSON.stringify([...cart, p]));
-                    toast.success("Item Added to cart");
-                  }}
-                >
-                  <i className="fa-solid fa-bag-shopping fa-xl"></i>
-                </button>
-                <button className="btn btn-primary m-1">
-                  <i className="fa-regular fa-heart fa-xl"></i>
-                </button>
+                <div className="item-btn">
+                  <button
+                    className="btn btn-primary m-1"
+                    onClick={() => {
+                      setCart([...cart, p]);
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, p])
+                      );
+                      toast.success("Item Added to cart");
+                    }}
+                  >
+                    <i className="fa-solid fa-bag-shopping fa-xl"></i>
+                  </button>
+                  <button className="btn btn-primary m-1">
+                    <i className="fa-regular fa-heart fa-xl"></i>
+                  </button>
+                </div>
               </div>
             </div>
           ))}
         </div>
-        <div className="m-1 p-3">
+        <div className="pro-box">
           {products && products.length < total && (
             <button
-              className="btn btn-warning"
+              className="item-btn btn btn-primary"
               onClick={(e) => {
                 e.preventDefault();
                 setPage(page + 1);

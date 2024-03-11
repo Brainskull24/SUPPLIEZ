@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Layout from "../../components/Layout/Home/Navbar";
+import Layout from "../../components/Layout/Home/Layout";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import "../../styles/register.css";
-import registerImage from "../../imgs/register.jpg";
-const ForgotPasssword = () => {
+
+const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");
@@ -34,14 +34,8 @@ const ForgotPasssword = () => {
       toast.error("Something went wrong");
     }
   };
-  const divStyle = {
-    backgroundImage: `url(${registerImage})`,
-    backgroundSize: "cover",
-    minHeight: "100vh",
-  };
   return (
-    <main style={divStyle}>
-      <Layout></Layout>
+    <Layout>
       <div className="register">
         <h3>Change Password</h3>
         <input
@@ -51,13 +45,13 @@ const ForgotPasssword = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter your Email"
         ></input>
-          <input
-            type="password"
-            name="New Password"
-            value={password}
-            onChange={(e) => setpassword(e.target.value)}
-            placeholder="Enter your New Password"
-          ></input>
+        <input
+          type="password"
+          name="New Password"
+          value={password}
+          onChange={(e) => setpassword(e.target.value)}
+          placeholder="Enter your New Password"
+        ></input>
         <input
           type="Number"
           name="Contact"
@@ -71,8 +65,8 @@ const ForgotPasssword = () => {
           </button>
         </div>
       </div>
-    </main>
+    </Layout>
   );
 };
 
-export default ForgotPasssword;
+export default ForgotPassword;

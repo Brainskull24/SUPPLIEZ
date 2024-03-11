@@ -6,8 +6,8 @@ import SearchInput from "../../Forms/SearchInput";
 import useCategory from "../../hooks/useCategory";
 import { useCart } from "../../../context/cart";
 import { Badge } from "antd";
-import logo from "../../../imgs/logo.jpg";
 import "../../../styles/navbar.css";
+import logo from "../../../imgs/logo.png";
 // import cartlogo from "../../../imgs/cart.png"
 // import { useState } from 'react';
 const Navbar = () => {
@@ -30,11 +30,10 @@ const Navbar = () => {
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg ">
-        <div className="container-fluid">
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mx-4">
-              
+      <nav className="navbar">
+        <div className="nav-container">
+          <div className="nav-box">
+            <div>
               <li className="nav-item dropdown mx-3">
                 <NavLink
                   className="nav-link dropdown-toggle"
@@ -66,11 +65,16 @@ const Navbar = () => {
                   ABOUT
                 </NavLink>
               </li>
+              <SearchInput />
+            </div>
+            <div>
               <li className="nav-item mx-3">
-                <NavLink className="nav-link" to="/">
-                  SUPPLIEZ
+                <NavLink to="/">
+                  <img src={logo} className="main-img" alt="SUPPLIEZ"></img>
                 </NavLink>
               </li>
+            </div>
+            <div>
               {!auth?.user ? (
                 <>
                   <li className="nav-item mx-3">
@@ -97,10 +101,7 @@ const Navbar = () => {
                     </NavLink>
                   </li>
                   <li className="nav-item mx-3">
-                    <NavLink
-                      to="/dashboard/orders"
-                      className="nav-link"
-                    >
+                    <NavLink to="/dashboard/orders" className="nav-link">
                       ORDERS
                     </NavLink>
                   </li>
@@ -115,7 +116,6 @@ const Navbar = () => {
                   </li>
                 </>
               )}
-              
               <li className="nav-item mx-2">
                 <NavLink to="/profile" className="nav-link">
                   <i class="fa-regular fa-user fa-xl"></i>
@@ -133,8 +133,7 @@ const Navbar = () => {
                   </Badge>
                 </NavLink>
               </li>
-              {/* <SearchInput/> */}
-            </ul>
+            </div>
           </div>
         </div>
       </nav>
