@@ -117,8 +117,8 @@ const HomePage = () => {
   };
 
   return (
-    <Layout>
-      <div className="product-box">
+    <Layout >
+      <div className="product-box" >
         <div className="product-container">
           {products?.map((p) => (
             <div
@@ -131,12 +131,6 @@ const HomePage = () => {
                 style={{ width: "18rem", height: "13rem" }}
                 className="card-img-top"
                 alt={p.name}
-                onError={(e) => {
-                  console.error("Error loading image. URL:", e.target.src);
-                }}
-                onLoad={() => {
-                  console.log("Image loaded successfully");
-                }}
               />
               <div className="card-body">
                 <h5 className="card-title">{p.name}</h5>

@@ -8,7 +8,6 @@ import "../styles/productdetails.css";
 const ProductDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
-  
   const [cart, setCart] = useCart();
   const [categories, setCategories] = useState([]);
   const [product, setProduct] = useState({});

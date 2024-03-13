@@ -30,7 +30,7 @@ const Navbar = () => {
   };
   return (
     <>
-      <nav className="navbar">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="nav-container">
           <div className="nav-box">
             <div>

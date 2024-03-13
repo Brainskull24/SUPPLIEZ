@@ -30,12 +30,10 @@ const ProductSchema = new mongoose.Schema(
         type: String,
         required: true,
     },
-    photos: [
-      {
-        data: Buffer,
-        contentType: String,
-      }
-    ],
+    photo: {
+      data: Buffer,
+      contentType: String,
+    },
     createdAt: {
       type: Date,
       default: Date.now,

@@ -26,30 +26,26 @@ const Products = () => {
 
   return (
     <Layout>
-      <div className="product-container flex flex-col items-center ">
-        <h1 className="text-center m-4">PRODUCTS AVAILABLE</h1>
-        <div className="product-box">
+      <div className="product-box" >
+        <div className="product-container">
           {products?.map((p) => (
-            <Link
+            <div
+              className="product-item card"
               key={p._id}
-              to={`/dashboard/admin/product/${p.slug}`}
-              className="product-link"
             >
-              <div className="card m-2" style={{ width: "18rem" }}>
-                <Link to={`/dashboard/admin/product/${p.slug}`}>
-                  <div className="card-body">
-                    <img
-                      src={`http://localhost:9002/api/v1/product/productphoto/${p._id}`}
-                      className="card-img-top"
-                      alt={p.name}
-                    />
-                    <h5 className="card-title">NAME: {p.name}</h5>
-                    <h5 className="card-title">SELLER: {p.sellername}</h5>
-                    <h5 className="card-title">PRICE: RS. {p.price}</h5>
-                  </div>
-                </Link>
+              <img
+                src={`http://localhost:9002/api/v1/product/productphoto/${p._id}`}
+                style={{ width: "18rem", height: "13rem" }}
+                className="card-img-top"
+                alt={p.name}
+              />
+              <div className="card-body">
+                <h5 className="card-title">{p.name}</h5>
+                <p className="card-text">
+                  RS: {p.price} / {p.unit}
+                </p>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>

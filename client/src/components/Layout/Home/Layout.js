@@ -4,9 +4,9 @@ import Navbar from "./Navbar";
 import { Toaster } from "react-hot-toast";
 const Layout = ({ children }) => {
   return (
-    <div>
-      <Navbar />
-      <main style={{ minHeight: "100vh" }}>
+    <div style={{minHeight: "100vh", zIndex: 1000}}>
+      <Navbar/>
+      <main style={{marginTop: "5rem", position: "relative",  zIndex: 1}} >
         <Toaster />
         {children}
       </main>

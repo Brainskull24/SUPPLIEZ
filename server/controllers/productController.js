@@ -4,7 +4,7 @@ import orderModel from "../models/orderModel.js";
 import slugify from "slugify";
 import braintree from "braintree";
 import dotenv from "dotenv";
-import mongoose from "mongoose"
+import fs from "fs"
 dotenv.config();
 
 var gateway = new braintree.BraintreeGateway({
@@ -14,39 +14,86 @@ var gateway = new braintree.BraintreeGateway({
   privateKey: process.env.BRAINTREE_PRIVATEKEY,
 });
 
+// export const createProductController = async (req, res) => {
+//   try {
+//     const { name, sellername, category, price, quantity, unit } = req.body;
+//     const photo = req.file;
+//     if (!name) {
+//       return res.send({ error: "Name is Required" });
+//     }
+//     if (!sellername) {
+//       return res.send({ message: "sellername is Required" });
+//     }
+//     if (!category) {
+//       return res.send({ message: "category is Required" });
+//     }
+//     if (!price) {
+//       return res.send({ message: "price is Required" });
+//     }
+//     if (!quantity) {
+//       return res.send({ message: "quantity is Required" });
+//     }
+//     if (!unit) {
+//       return res.send({ message: "unit is Required" });
+//     }
+//     if (!photo) {
+//       return res.status(400).json({ message: "No photo uploaded" });
+//     }
+//     const products = await new productModel({
+//       name,
+//       sellername,
+//       category,
+//       price,
+//       quantity,
+//       unit,
+//       slug: slugify(name),
+//       photos: [{ data: photo.buffer, contentType: photo.mimetype }],
+//     }).save();
+
+//     res.status(201).send({
+//       success: true,
+//       message: "Product Created Successfully",
+//       products,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send({
+//       success: false,
+//       error,
+//       message: "Error in crearing product",
+//     });
+//   }
+// };
+
 export const createProductController = async (req, res) => {
   try {
-    const { name, sellername, category, price, quantity, unit } = req.body;
-    const photo = req.file;
-    if (!name) {
-      return res.send({ error: "Name is Required" });
-    }
-    if (!sellername) {
-      return res.send({ message: "sellername is Required" });
-    }
-    if (!category) {
-      return res.send({ message: "category is Required" });
-    }
-    if (!price) {
-      return res.send({ message: "priceis Required" });
-    }
-    if (!quantity) {
-      return res.send({ message: "quantity is Required" });
-    }
-    if (!unit) {
-      return res.send({ message: "unit is Required" });
-    }
-    const products = await new productModel({
-      name,
-      sellername,
-      category,
-      price,
-      quantity,
-      unit,
-      slug: slugify(name),
-      photos: [{ data: photo.buffer, contentType: photo.mimetype }],
-    }).save();
+    const {name, sellername , category ,price, quantity , unit} = req.fields;
+    const { photo } = req.files;
 
+    switch (true) {
+      case !name:
+        return res.status(500).send({ error: "Name is Required" });
+      case !sellername:
+        return res.status(500).send({ error: "Name is Required" });
+      case !unit:
+        return res.status(500).send({ error: "Unit is Required" });
+      case !price:
+        return res.status(500).send({ error: "Price is Required" });
+      case !category:
+        return res.status(500).send({ error: "Category is Required" });
+      case !quantity:
+        return res.status(500).send({ error: "Quantity is Required" });
+      case photo && photo.size > 1000000:
+        return res
+          .status(500)
+          .send({ error: "photo is Required and should be less then 1mb" });
+    }
+    const products = new productModel({...req.fields , slug: slugify(name) });
+    if (photo) {
+      products.photo.data = fs.readFileSync(photo.path);
+      products.photo.contentType = photo.type;
+    }
+    await products.save();
     res.status(201).send({
       success: true,
       message: "Product Created Successfully",
@@ -61,7 +108,6 @@ export const createProductController = async (req, res) => {
     });
   }
 };
-//get all products
 export const getProductController = async (req, res) => {
   try {
     const products = await productModel
@@ -109,7 +155,7 @@ export const getSingleProductController = async (req, res) => {
 //delete controller
 export const deleteProductController = async (req, res) => {
   try {
-    await productModel.findByIdAndDelete(req.params.pid);
+    await productModel.findByIdAndDelete(req.params.id);
     res.status(200).send({
       success: true,
       message: "Product Deleted successfully",
@@ -126,25 +172,38 @@ export const deleteProductController = async (req, res) => {
 //update product
 export const updateProductController = async (req, res) => {
   try {
-    const { name, sellername, price, category, quantity, unit } = req.body;
-    const photo = req.file;
-
-    if (!name) return res.status(500).send({ error: "Name is Required" });
-    if (!sellername) return res.status(500).send({ error: "Seller name is Required" });
-    if (!price) return res.status(500).send({ error: "Price is Required" });
-    if (!category) return res.status(500).send({ error: "Category is Required" });
-    if (!quantity) return res.status(500).send({ error: "Quantity is Required" });
-    if (!unit) return res.status(500).send({ error: "Unit is Required" });
-    if (photo && photo.size > 1000000)
-      return res
-        .status(500)
-        .send({ error: "photo is Required and should be less then 1mb" });
+    const { name, sellername, price, category, quantity, unit } =
+      req.fields;
+    const { photo } = req.files;
+    //alidation
+    switch (true) {
+      case !name:
+        return res.status(500).send({ error: "Name is Required" });
+      case !sellername:
+        return res.status(500).send({ error: "Seller name is Required" });
+      case !price:
+        return res.status(500).send({ error: "Price is Required" });
+      case !category:
+        return res.status(500).send({ error: "Category is Required" });
+      case !quantity:
+        return res.status(500).send({ error: "Quantity is Required" });
+      case !unit:
+          return res.status(500).send({ error: "Unit is Required" });
+      case photo && photo.size > 1000000:
+        return res
+          .status(500)
+          .send({ error: "photo is Required and should be less then 1mb" });
+    }
 
     const products = await productModel.findByIdAndUpdate(
       req.params.pid,
       { ...req.fields, slug: slugify(name) },
       { new: true }
     );
+    if (photo) {
+      products.photo.data = fs.readFileSync(photo.path);
+      products.photo.contentType = photo.type;
+    }
     await products.save();
     res.status(201).send({
       success: true,
@@ -160,43 +219,20 @@ export const updateProductController = async (req, res) => {
     });
   }
 };
-//product photo
+
 export const productPhotoController = async (req, res) => {
   try {
-    const productId = req.params.pid;
-
-    if (!mongoose.Types.ObjectId.isValid(productId)) {
-      return res.status(400).send({
-        success: false,
-        message: "Invalid product ID",
-      });
+    const product = await productModel.findById(req.params.pid).select("photo");
+    if (product.photo.data) {
+      res.set("Content-type", product.photo.contentType);
+      return res.status(200).send(product.photo.data);
     }
-
-    const product = await productModel.findById(productId).select("photos");
-
-    if (!product) {
-      return res.status(404).send({
-        success: false,
-        message: "Product not found",
-      });
-    }
-
-    const photoURL =
-      product.photos && product.photos.length > 0
-        ? `data:${product.photos[0].contentType};base64,${product.photos[0].data.toString("base64")}`
-        : "http://localhost:9002/api/v1/product/productphoto/" + productId;
-
-    res.status(200).send({
-      success: true,
-      message: "Product photo sent",
-      photoURL,
-    });
   } catch (error) {
-    console.error(error);
+    console.log(error);
     res.status(500).send({
       success: false,
-      message: "Error while getting photo",
-      error: error.message,
+      message: "Erorr while getting photo",
+      error,
     });
   }
 };

@@ -64,10 +64,10 @@ const UpdateProduct = () => {
     try {
       const productData = new FormData();
       productData.append("name", name);
-      productData.append("sname", sellername);
+      productData.append("sellername", sellername);
       productData.append("price", price);
       productData.append("quantity", quantity);
-      productData.append("Unit", unit);
+      productData.append("unit", unit);
       photo && productData.append("photo", photo);
       productData.append("category", category);
       const { data } = axios.put(
@@ -85,13 +85,12 @@ const UpdateProduct = () => {
       toast.error("something went wrong");
     }
   };
-
   //delete a product
   const handleDelete = async () => {
     try {
-      let answer = window.prompt("Are You Sure want to delete this product ? ");
-      if (!answer) return;
-      axios.delete(`http://localhost:9002/api/v1/product/deleteproduct/${id}`);
+      await axios.delete(
+        `http://localhost:9002/api/v1/product/deleteproduct/${id}`
+      );
       toast.success("Product Deleted Successfully");
       navigate("/dashboard/admin/products");
     } catch (error) {
@@ -132,7 +131,7 @@ const UpdateProduct = () => {
               </label>
             </div>
             <div className="mb-3">
-              {photo && (
+              {photo ? (
                 <div className="text-center">
                   <img
                     src={URL.createObjectURL(photo)}
@@ -141,8 +140,18 @@ const UpdateProduct = () => {
                     className="img img-responsive"
                   />
                 </div>
+              ) : (
+                <div className="text-center">
+                  <img
+                    src={`http://localhost:9002/api/v1/product/productphoto/${id}`}
+                    alt="product_photo"
+                    height={"200px"}
+                    className="img img-responsive"
+                  />
+                </div>
               )}
             </div>
+
             <div className="mb-3">
               <input
                 name="name"
@@ -163,7 +172,6 @@ const UpdateProduct = () => {
                 onChange={(e) => setSellerName(e.target.value)}
               />
             </div>
-
             <div className="mb-3">
               <input
                 name="price"

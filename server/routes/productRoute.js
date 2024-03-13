@@ -17,15 +17,13 @@ import {
 } from "../controllers/productController.js";
 import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
 const router = express.Router();
-import multer from "multer"
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+import formidable from "express-formidable"
 //routes
 router.post(
   "/createproduct",
   // requireSignIn,
   // isAdmin,
-  upload.single('photo'),
+  formidable(),
   createProductController
 );
 
@@ -34,13 +32,12 @@ router.put(
   "/updateproduct/:id",
   // requireSignIn,
   // isAdmin,
+  formidable(),
   updateProductController
 );
 
 //get products
 router.get("/getproduct", getProductController);
-//get farmer products
-// router.get("/getaddedproducts", getaddedProductController);
 
 //single product
 router.get("/getproduct/:slug", getSingleProductController);
