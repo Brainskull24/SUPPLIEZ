@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/farmer/style.css"
+import "../../styles/style.css"
 const CategoryForm = ({ handleSubmit, value, setValue }) => {
   return (
     <>

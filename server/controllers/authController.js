@@ -189,20 +189,14 @@ export const feedbackController = async (req, res) => {
 //update profile
 export const updateProfileController = async (req, res) => {
   try {
-    const { name, email, password, address,Contact} = req.body;
+    const { name, age, Contact} = req.body;
     const user = await userModel.findById(req.user._id);
-    //password
-    if (password && password.length < 6) {
-      return res.json({ error: "Passsword is required and 6 character long" });
-    }
-    const hashedPassword = password ? await hashPassword(password) : undefined;
     const updatedUser = await userModel.findByIdAndUpdate(
       req.user._id,
       {
         name: name || user.name,
-        password: hashedPassword || user.password,
         Contact: Contact || user.Contact,
-        address: address || user.address,
+        age: age || user.age,
       },
       { new: true }
     );

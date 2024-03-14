@@ -59,8 +59,8 @@ const ForgotPassword = () => {
           onChange={(e) => setContact(e.target.value)}
           placeholder="Enter your Contact"
         ></input>
-        <div className="buttons">
-          <button className="button" onClick={handleSubmit}>
+        <div className="register-buttons">
+          <button className="hey-button" onClick={handleSubmit}>
             RESET
           </button>
         </div>

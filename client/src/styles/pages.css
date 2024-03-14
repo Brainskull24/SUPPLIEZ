@@ -37,3 +37,17 @@
     text-decoration: none;
     color: black;
 }
+
+/* Profile page */
+
+.profile-form{
+    display: flex;
+    padding: 3rem;
+    flex-direction: column;
+}
+
+.form-title{
+    font-size: x-large;
+    text-align: center;
+    margin: 1rem;
+}

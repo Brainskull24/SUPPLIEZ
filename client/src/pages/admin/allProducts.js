@@ -3,7 +3,6 @@ import Layout from "./../../components/Layout/Admin/Layout";
 import axios from "axios";
 import "../../styles/card.css";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
 
 const Products = () => {
   const [products, setProducts] = useState([]);

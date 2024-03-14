@@ -41,7 +41,7 @@ const Login = () => {
 
   return (
     <Layout>
-      <div className="flex register m-auto w-3/10 rounded-md mt-2 text-center p-4 bg-[rgba(20,20,23,0.788)]">
+      <div className="register">
         <h3>Login Now</h3>
         <input
           className="register-input"
@@ -68,7 +68,7 @@ const Login = () => {
           Forgot Password ?
         </span>
         <div className="register-buttons">
-          <div className="register-button" onClick={login}>
+          <div className="hey-button" onClick={login}>
             LOGIN
           </div>
         </div>

@@ -28,7 +28,7 @@
 .item-btn{
     display: flex;
     flex-direction: row;
-    width: fit-content;
+    padding: 0%;
 }
 
 .pro-box{

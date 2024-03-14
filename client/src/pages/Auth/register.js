@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/Layout/Home/Navbar";
 import Layout from "../../components/Layout/Home/Layout"
 const Register = () => {
   const history = useNavigate();
@@ -47,7 +46,7 @@ const Register = () => {
   return (
     <Layout>
       <div className="register">
-        <h3 className="text-white">Create Account</h3>
+        <h3>Create Account</h3>
         <input
           type="text"
           name="name"
@@ -90,11 +89,11 @@ const Register = () => {
           placeholder="Contact"
           onChange={handleChange}
         />
-        <div className="buttons">
-          <div className="button" onClick={register}>
+        <div className="register-buttons">
+          <div className="hey-button" onClick={register}>
             REGISTER
           </div>
-          <div className="button" onClick={() => history("/login")}>
+          <div className="hey-button" onClick={() => history("/login")}>
             LOGIN
           </div>
         </div>
