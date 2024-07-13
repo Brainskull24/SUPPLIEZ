@@ -9,35 +9,39 @@ import {
   getAllOrdersController,
   orderStatusController,
 } from "../controllers/authController.js";
-import {requireSignIn , isAdmin} from "../middlewares/authMiddleware.js";
 
-//router object
+// middlewares
+import { requireSignIn, isAdmin } from "../middlewares/authMiddleware.js";
+
+// router object
 const router = express.Router();
+
+// register and login
 router.post("/register", registerController);
 router.post("/login", loginController);
 
-// //Forgot Password || POST
+// Forgot Password
 router.post("/forgot-password", forgotPasswordController);
 
 router.post("/feedback", feedbackController);
 
-//protected Farmer route auth
-router.get("/supplier", requireSignIn , (req, res) => {
+// protected Farmer route auth
+router.get("/supplier", requireSignIn, (req, res) => {
   res.status(200).send({ ok: true });
 });
 
-//protected Admin route auth
+// protected Admin route auth
 router.get("/admin", requireSignIn, isAdmin, (req, res) => {
   res.status(200).send({ ok: true });
 });
 
-//update profile
+// update profile
 router.put("/profile", requireSignIn, updateProfileController);
 
-//orders
+// user orders
 router.get("/orders", requireSignIn, getOrdersController);
 
-//all orders
+// all orders
 router.get("/all-orders", requireSignIn, isAdmin, getAllOrdersController);
 
 // order status update
@@ -47,6 +51,5 @@ router.put(
   isAdmin,
   orderStatusController
 );
-
 
 export default router;

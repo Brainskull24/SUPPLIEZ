@@ -1,5 +1,5 @@
 import express from "express";
-import { requireSignIn ,isAdmin} from "./../middlewares/authMiddleware.js";
+import { requireSignIn, isAdmin } from "./../middlewares/authMiddleware.js";
 import {
   allCategoryController,
   createCategoryController,
@@ -10,7 +10,6 @@ import {
 
 const router = express.Router();
 
-//routes
 // create category
 router.post(
   "/createcategory",
@@ -19,7 +18,7 @@ router.post(
   createCategoryController
 );
 
-//update category
+// update category
 router.put(
   "/updatecategory/:id",
   requireSignIn,
@@ -27,13 +26,13 @@ router.put(
   updateCategoryController
 );
 
-//getALL category
+// get all categories
 router.get("/allcategory", allCategoryController);
 
-//single category
+// single category
 router.get("/singlecategory/:slug", singleCategoryController);
 
-//delete category
+// delete category
 router.delete(
   "/deletecategory/:id",
   requireSignIn,

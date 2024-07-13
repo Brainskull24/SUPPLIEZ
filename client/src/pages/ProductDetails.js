@@ -20,7 +20,6 @@ const ProductDetails = () => {
     if (params?.slug) getProduct();
   }, [params?.slug]);
 
-  //getProduct
   const getProduct = async () => {
     try {
       const { data } = await axios.get(

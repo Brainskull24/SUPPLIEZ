@@ -1,5 +1,5 @@
 import React from "react";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../../context/auth";
 

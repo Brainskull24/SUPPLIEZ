@@ -1,4 +1,5 @@
 import express from "express";
+import formidable from "express-formidable";
 import {
   createProductController,
   deleteProductController,
@@ -15,10 +16,12 @@ import {
   brainTreePaymentController,
   braintreeTokenController,
 } from "../controllers/productController.js";
-import { isAdmin, requireSignIn } from "../middlewares/authMiddleware.js";
+
+import { requireSignIn } from "../middlewares/authMiddleware.js";
+
 const router = express.Router();
-import formidable from "express-formidable"
-//routes
+
+// create product
 router.post(
   "/createproduct",
   // requireSignIn,
@@ -27,7 +30,7 @@ router.post(
   createProductController
 );
 
-//routes
+// update product
 router.put(
   "/updateproduct/:id",
   // requireSignIn,
@@ -36,38 +39,40 @@ router.put(
   updateProductController
 );
 
-//get products
+// get products
 router.get("/getproduct", getProductController);
 
-//single product
+// get single product
 router.get("/getproduct/:slug", getSingleProductController);
 
+// get product photo 
 router.get("/productphoto/:pid", productPhotoController);
-//delete rproduct
+
+// delete product
 router.delete("/deleteproduct/:id", deleteProductController);
 
-//filter product
+// filter products
 router.post("/productfilters", productFiltersController);
 
-//product count
+// product count
 router.get("/productcount", productCountController);
 
-//product per page
+// product per page
 router.get("/productlist/:page", productListController);
 
-//search product
+// search product
 router.get("/search/:keyword", searchProductController);
 
-//similar product
+// similar product
 router.get("/related-product/:pid/:cid", realtedProductController);
 
-//category wise product
+// category-wise product
 router.get("/product-category/:slug", productCategoryController);
 
-//token
+// token
 router.get("/braintree/token", braintreeTokenController);
 
-//payments
+// payments
 router.post("/braintree/payment", requireSignIn, brainTreePaymentController);
 
 export default router;

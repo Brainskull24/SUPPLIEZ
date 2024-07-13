@@ -32,6 +32,7 @@ const Login = () => {
           isAuthenticated: true,
         });
         localStorage.setItem("auth", JSON.stringify(res.data));
+        console.log(auth)
         navigate("/");
       })
       .catch((error) => {

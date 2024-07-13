@@ -4,7 +4,7 @@ import orderModel from "../models/orderModel.js";
 import slugify from "slugify";
 import braintree from "braintree";
 import dotenv from "dotenv";
-import fs from "fs"
+import fs from "fs";
 dotenv.config();
 
 var gateway = new braintree.BraintreeGateway({
@@ -67,7 +67,7 @@ var gateway = new braintree.BraintreeGateway({
 
 export const createProductController = async (req, res) => {
   try {
-    const {name, sellername , category ,price, quantity , unit} = req.fields;
+    const { name, sellername, category, price, quantity, unit } = req.fields;
     const { photo } = req.files;
 
     switch (true) {
@@ -88,7 +88,7 @@ export const createProductController = async (req, res) => {
           .status(500)
           .send({ error: "photo is Required and should be less then 1mb" });
     }
-    const products = new productModel({...req.fields , slug: slugify(name) });
+    const products = new productModel({ ...req.fields, slug: slugify(name) });
     if (photo) {
       products.photo.data = fs.readFileSync(photo.path);
       products.photo.contentType = photo.type;
@@ -108,6 +108,7 @@ export const createProductController = async (req, res) => {
     });
   }
 };
+
 export const getProductController = async (req, res) => {
   try {
     const products = await productModel
@@ -131,6 +132,7 @@ export const getProductController = async (req, res) => {
     });
   }
 };
+
 // get single product
 export const getSingleProductController = async (req, res) => {
   try {
@@ -140,7 +142,7 @@ export const getSingleProductController = async (req, res) => {
       .populate("category");
     res.status(200).send({
       success: true,
-      message: "Single Product Fetched",
+      message: "Single    Fetched",
       product,
     });
   } catch (error) {
@@ -172,8 +174,7 @@ export const deleteProductController = async (req, res) => {
 //update product
 export const updateProductController = async (req, res) => {
   try {
-    const { name, sellername, price, category, quantity, unit } =
-      req.fields;
+    const { name, sellername, price, category, quantity, unit } = req.fields;
     const { photo } = req.files;
     //alidation
     switch (true) {
@@ -188,7 +189,7 @@ export const updateProductController = async (req, res) => {
       case !quantity:
         return res.status(500).send({ error: "Quantity is Required" });
       case !unit:
-          return res.status(500).send({ error: "Unit is Required" });
+        return res.status(500).send({ error: "Unit is Required" });
       case photo && photo.size > 1000000:
         return res
           .status(500)
@@ -258,6 +259,7 @@ export const productFiltersController = async (req, res) => {
     });
   }
 };
+
 // product count
 export const productCountController = async (req, res) => {
   try {
@@ -275,6 +277,7 @@ export const productCountController = async (req, res) => {
     });
   }
 };
+
 // product list base on page
 export const productListController = async (req, res) => {
   try {
@@ -299,6 +302,7 @@ export const productListController = async (req, res) => {
     });
   }
 };
+
 // search product
 export const searchProductController = async (req, res) => {
   try {
@@ -321,6 +325,7 @@ export const searchProductController = async (req, res) => {
     });
   }
 };
+
 // similar products
 export const realtedProductController = async (req, res) => {
   try {
@@ -346,6 +351,7 @@ export const realtedProductController = async (req, res) => {
     });
   }
 };
+
 // get products by category
 export const productCategoryController = async (req, res) => {
   try {
@@ -365,6 +371,7 @@ export const productCategoryController = async (req, res) => {
     });
   }
 };
+
 export const braintreeTokenController = async (req, res) => {
   try {
     gateway.clientToken.generate({}, function (err, response) {
@@ -378,6 +385,7 @@ export const braintreeTokenController = async (req, res) => {
     console.log(error);
   }
 };
+
 //payment
 export const brainTreePaymentController = async (req, res) => {
   try {
