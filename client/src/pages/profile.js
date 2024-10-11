@@ -1,25 +1,27 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Layout from "../components/Layout/Home/Layout";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../context/auth";
-import "../styles/pages.css"
+import "../styles/pages.css";
+
 const Profile = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [auth, setAuth] = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Contact, setContact] = useState("");
   const [age, setAge] = useState("");
+
   useEffect(() => {
     if (auth?.user) {
-      const { email, name, Contact, password, age } = auth.user;
+      const { email, name, Contact, age, reEnterPassword } = auth.user;
       setName(name);
       setEmail(email);
       setContact(Contact);
-      setPassword(password);
+      setPassword(reEnterPassword);
       setAge(age);
     }
   }, [auth?.user]);
@@ -56,9 +58,9 @@ const Profile = () => {
 
   useEffect(() => {
     if (!auth.isAuthenticated) {
-      history("/login");
+      navigate("/login");
     }
-  }, [auth.isAuthenticated, history]);
+  }, [auth.isAuthenticated, navigate]);
 
   return (
     <Layout>

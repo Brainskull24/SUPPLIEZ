@@ -13,8 +13,8 @@ import {
   realtedProductController,
   searchProductController,
   productCategoryController,
-  brainTreePaymentController,
-  braintreeTokenController,
+  // brainTreePaymentController,
+  // braintreeTokenController,
 } from "../controllers/productController.js";
 
 import { requireSignIn } from "../middlewares/authMiddleware.js";
@@ -70,9 +70,9 @@ router.get("/related-product/:pid/:cid", realtedProductController);
 router.get("/product-category/:slug", productCategoryController);
 
 // token
-router.get("/braintree/token", braintreeTokenController);
+// router.get("/braintree/token", braintreeTokenController);
 
 // payments
-router.post("/braintree/payment", requireSignIn, brainTreePaymentController);
+// router.post("/braintree/payment", requireSignIn, brainTreePaymentController);
 
 export default router;

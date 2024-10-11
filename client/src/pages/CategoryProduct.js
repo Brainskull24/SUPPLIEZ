@@ -12,6 +12,7 @@ const CategoryProduct = () => {
   const [cart, setCart] = useCart();
   useEffect(() => {
     if (params?.slug) getPrductsByCat();
+    // eslint-disable-next-line 
   }, [params?.slug]);
   const getPrductsByCat = async () => {
     try {

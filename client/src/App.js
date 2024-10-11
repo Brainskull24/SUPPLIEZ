@@ -44,11 +44,11 @@ function App() {
         <Route path="/product/:slug" element={<ProductDetails />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/category/:slug" element={<CategoryProduct />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/search" element={<Search />} /> 
+        <Route path="/register" element={<Register />} /> 
+        <Route path="/login" element={<Login />} /> 
+        <Route path="/about" element={<About />} /> 
+        <Route path="/profile" element={<ProfilePage />} /> 
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/policy" element={<Policy />} />
         <Route path="*" element={<Pagenotfound />} />

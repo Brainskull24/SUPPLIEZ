@@ -9,15 +9,16 @@ const ProductDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [cart, setCart] = useCart();
-  const [categories, setCategories] = useState([]);
+  const [, setCategories] = useState([]);
   const [product, setProduct] = useState({});
   const [products, setProducts] = useState([]);
   const [relatedProducts, setRelatedProducts] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [page] = useState(1);
+  const [, setLoading] = useState(false);
 
   useEffect(() => {
     if (params?.slug) getProduct();
+    // eslint-disable-next-line 
   }, [params?.slug]);
 
   const getProduct = async () => {
@@ -32,6 +33,7 @@ const ProductDetails = () => {
     }
   };
 
+  // eslint-disable-next-line 
   const getAllCategory = async () => {
     try {
       const { data } = await axios.get(
@@ -45,6 +47,7 @@ const ProductDetails = () => {
     }
   };
 
+  // eslint-disable-next-line 
   const getAllProducts = async () => {
     try {
       setLoading(true);

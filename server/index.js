@@ -1,7 +1,7 @@
 import express from "express"
 import cors from "cors"
 import dotenv from 'dotenv'
-const PORT = process.env.PORT || 9000
+const PORT = process.env.PORT || 9002
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoute.js";
 import categoryRoutes from "./routes/categoryRoute.js";

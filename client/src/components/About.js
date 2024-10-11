@@ -1,17 +1,19 @@
-import React from "react";
 import "../styles/components.css";
 import Layout from "./Layout/Home/Layout";
 import feedimg from "../imgs/feedback.jpg";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 const Homepage = () => {
   const [query, setQuery] = useState({
     name: "",
     email: "",
     feedbacktext: "",
   });
+
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setQuery({
@@ -19,6 +21,7 @@ const Homepage = () => {
       [name]: value,
     });
   };
+  
   const Feedback = () => {
     const { name, email, feedbacktext } = query;
     if (name && email && feedbacktext) {

@@ -1,9 +1,10 @@
-import React from "react";
 import Layout from "./../components/Layout/Home/Layout";
 import { useSearch } from "../context/search";
+
 const Search = () => {
   // eslint-disable-next-line
   const [values, setValues] = useSearch();
+
   return (
     <Layout title={"Search results"}>
       <div className="container">

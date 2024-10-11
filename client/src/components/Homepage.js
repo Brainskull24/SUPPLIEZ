@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Layout from "./../components/Layout/Home/Layout";
 import axios from "axios";
-// import { Checkbox, Radio } from "antd";
-// import { Prices } from "../components/Prices";
 import { useCart } from "../context/cart";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -14,9 +12,9 @@ import "../styles/card.css";
 const HomePage = () => {
   const [cart, setCart] = useCart();
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [checked, setChecked] = useState([]);
-  const [radio, setRadio] = useState([]);
+  const [,setCategories] = useState([]);
+  const [checked] = useState([]);
+  const [radio] = useState([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -34,12 +32,13 @@ const HomePage = () => {
       console.log(error);
     }
   };
-  
+
   useEffect(() => {
     getAllCategory();
     getTotal();
     getAllProducts();
-  }, []);
+  });
+
   //GET ALL PRODUCTS
   const getAllProducts = async () => {
     try {
@@ -54,6 +53,7 @@ const HomePage = () => {
       console.log(error);
     }
   };
+
   // TOTAL COUNT
   const getTotal = async () => {
     try {
@@ -65,11 +65,11 @@ const HomePage = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     if (page === 1) return;
     loadMore();
-  }, [page]);
-  //TOTAL COUNT
+  });
 
   //LOAD MORE
   const loadMore = async () => {
@@ -85,24 +85,28 @@ const HomePage = () => {
       setLoading(false);
     }
   };
-  //LOAD MORE
 
   // FILTER PRODUCTS
-  const handleFilter = (value, id) => {
-    let all = [...checked];
-    if (value) {
-      all.push(id);
-    } else {
-      all = all.filter((c) => c !== id);
-    }
-    setChecked(all);
-  };
+  // const handleFilter = (value, id) => {
+  //   let all = [...checked];
+  //   if (value) {
+  //     all.push(id);
+  //   } else {
+  //     all = all.filter((c) => c !== id);
+  //   }
+  //   setChecked(all);
+  // };
+
   useEffect(() => {
     if (!checked.length || !radio.length) getAllProducts();
+    // eslint-disable-next-line 
   }, [checked.length, radio.length]);
+
   useEffect(() => {
     if (checked.length || radio.length) filterProduct();
+    // eslint-disable-next-line 
   }, [checked, radio]);
+
   const filterProduct = async () => {
     try {
       const { data } = await axios.post(
@@ -117,7 +121,6 @@ const HomePage = () => {
       console.log(error);
     }
   };
-  // FILTER PRODUCTS
 
   return (
     <Layout>
@@ -137,6 +140,7 @@ const HomePage = () => {
             <img className="d-block w-100" src={c3} alt="Third slide" />
           </div>
         </div>
+
         <a
           className="carousel-control-prev"
           href="#carouselExampleControls"
@@ -149,6 +153,7 @@ const HomePage = () => {
           ></span>
           <span className="sr-only">Previous</span>
         </a>
+
         <a
           className="carousel-control-next"
           href="#carouselExampleControls"
@@ -162,6 +167,7 @@ const HomePage = () => {
           <span className="sr-only">Next</span>
         </a>
       </div>
+
       <div className="product-box">
         <div className="product-container">
           {products?.map((p) => (
@@ -203,6 +209,7 @@ const HomePage = () => {
             </div>
           ))}
         </div>
+
         <div className="pro-box">
           {products && products.length < total && (
             <button
@@ -217,7 +224,6 @@ const HomePage = () => {
           )}
         </div>
       </div>
-      
     </Layout>
   );
 };

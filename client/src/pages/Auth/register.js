@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Layout from "../../components/Layout/Home/Layout"
+
 const Register = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -36,10 +37,10 @@ const Register = () => {
         .post("http://localhost:9002/api/v1/auth/register", user)
         .then((res) => {
           alert(res.data.message);
-          history("/login");
+          navigate("/login");
         });
     } else {
-      alert("invlid input");
+      alert("invalid input");
     }
   };
 
@@ -93,7 +94,7 @@ const Register = () => {
           <div className="hey-button" onClick={register}>
             REGISTER
           </div>
-          <div className="hey-button" onClick={() => history("/login")}>
+          <div className="hey-button" onClick={() => navigate("/login")}>
             LOGIN
           </div>
         </div>

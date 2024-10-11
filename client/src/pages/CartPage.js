@@ -8,7 +8,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const CartPage = () => {
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   const [cart, setCart] = useCart();
   const navigate = useNavigate();
   const [clientToken, setClientToken] = useState("");
@@ -18,6 +18,7 @@ const CartPage = () => {
   const totalPrice = () => {
     try {
       let total = 0;
+      // eslint-disable-next-line 
       cart?.map((item) => {
         total = total + item.price;
       });
@@ -60,6 +61,7 @@ const CartPage = () => {
     try {
       setLoading(true);
       const { nonce } = await instance.requestPaymentMethod();
+      // eslint-disable-next-line 
       const { data } = await axios.post(
         "http://localhost:9002/api/v1/product/braintree/payment",
         {
